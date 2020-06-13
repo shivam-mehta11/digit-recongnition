@@ -1,0 +1,22 @@
+{
+  "name": "major-project",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shivam-mehta11/digit-recongnition.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/shivam-mehta11/digit-recongnition/issues"
+  },
+  "homepage": "https://github.com/shivam-mehta11/digit-recongnition#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
