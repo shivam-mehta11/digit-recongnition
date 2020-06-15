@@ -3,7 +3,7 @@ var app = express();
 var port = 3000|| process.env.PORT;
 
 app.get('/', function (req, res) {
-    res.sendFile( __dirname + "/" + "digitclassifier.html" );
+    res.sendFile( __dirname + "/" + "digitclassifier.html" ); //added the static  file to the git
 })
 
 var server = app.listen(port, function () {
