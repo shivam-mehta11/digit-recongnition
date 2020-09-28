@@ -4,7 +4,7 @@ const fs= require('fs');
 const multer = require('multer');
 const { TesseractWorker }= require('tesseract.js');
 //const { createBrotliCompress } = require('zlib');
-var port = 3000|| process.env.PORT;
+var port =process.env.PORT||3000;
 
 const worker= new TesseractWorker();
 
@@ -47,8 +47,8 @@ app.post('/upload',(req,res)=>{
 });
 
 var server = app.listen(port, function () {
-   var host = server.address().address
-   var port = server.address().port
+   var host = server.address().address;
+   var port = server.address().port;
 
    console.log("Example app listening at http://%s:%s", host, port);
 })
