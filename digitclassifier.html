@@ -59,6 +59,11 @@
             <div id="nnInput"></div>
           </div>
         </div>
+        <center>
+          
+        <button onclick="document.location='/pdf'" type='submit'>Pdf</button>
+        
+        </center>
         <div style="float:left;font-size:200px;margin-left:80px;" id="nnOut"></div>
       </div>
       
@@ -332,8 +337,8 @@
           }
         }
         // compute layer3 output (softmax)
-        var max3 = out3.reduce(function(p,c) { return p>c ? p : c; });//comparing previous and cunrrent
-        var nominators = out3.map(function(e) { return Math.exp(e - max3); });//given no - greatest of previous and current
+        var max3 = out3.reduce(function(p,c) { return p>c ? p : c; });//comparing previous and current will return max value
+        var nominators = out3.map(function(e) { return Math.exp(e - max3); });//given no - greatest
         var denominator = nominators.reduce(function (p, c) { return p + c; });// prev + curr sum
         var output = nominators.map(function(e) { return e / denominator; });// c/p - max + c - max  
         
@@ -388,15 +393,16 @@
         return { minY: minY, minX: minX, maxY: maxY, maxX: maxX}; // min max coordinates(x & Y) passed as objects
       }
 
-      // take canvas image and convert to grayscale. Mainly because my
-      // own functions operate easier on grayscale, but some stuff like
+      // take canvas image and convert to grayscale. Mainly because 
+      // own functions operate easier on grayscale
       // resizing and translating is better done with the canvas functions
       function imageDataToGrayscale(imgData) {
         var grayscaleImg = [];
         for (var y = 0; y < imgData.height; y++) {
           grayscaleImg[y]=[];
           for (var x = 0; x < imgData.width; x++) {
-            var offset = y * 4 * imgData.width + 4 * x;//providing some offset in the image
+            var offset = y * 4 * imgData.width + 4 * x;//providing some offset in the image offset is distance from centre of lens and image bottom or top
+    
             var alpha = imgData.data[offset+3];
             // weird: when painting with stroke, alpha == 0 means white;
             // alpha > 0 is a grayscale value; in that case I simply take the R value
@@ -426,8 +432,7 @@
         var trans = centerImage(grayscaleImg); // [dX, dY] to center of mass
         
         // copy image to hidden canvas, translate to center-of-mass, then
-        // scale to fit into a 200x200 box (see MNIST calibration notes on
-        // Yann LeCun's website)
+        // scale to fit into a 200x200 box
         var canvasCopy = document.createElement("canvas");
         canvasCopy.width = imgData.width;
         canvasCopy.height = imgData.height;
@@ -443,10 +448,7 @@
         copyCtx.translate(trans.transX, trans.transY);
         
         if (document.getElementById('scaleStrokeWidth').checked == true) {
-          // redraw the image with a scaled lineWidth first.
-          // not this is a bit buggy; the bounding box we computed above (which contributed to "scaling") is not valid anymore because
-          // the line width has changed. This is mostly a problem for extreme cases (very small digits) where the rescaled digit will
-          // be smaller than the bounding box. I could change this but it'd screw up the code.
+          
           for (var p = 0; p < paths.length; p++) {
             for (var i = 0; i < paths[p][0].length - 1; i++) {
               var x1 = paths[p][0][i];
@@ -498,8 +500,7 @@
           }
         }
         
-        //for copy & pasting the digit into matlab
-        //document.getElementById('nnInput').innerHTML=JSON.stringify(nnInput)+';<br><br><br><br>';
+        
         var maxIndex = 0;
         var nnOutput = nn(nnInput, w12, bias2, w23, bias3);
         console.log(nnOutput);

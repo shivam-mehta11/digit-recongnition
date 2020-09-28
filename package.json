@@ -1,10 +1,10 @@
 {
   "name": "major-project",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon index.js"
   },
   "repository": {
     "type": "git",
@@ -17,6 +17,13 @@
   },
   "homepage": "https://github.com/shivam-mehta11/digit-recongnition#readme",
   "dependencies": {
-    "express": "^4.17.1"
-  }
+    "ejs": "^2.7.1",
+    "express": "^4.17.1",
+    "multer": "^1.4.2",
+    "tesseract.js": "^2.0.0-alpha.15"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.4"
+  },
+  "description": ""
 }
