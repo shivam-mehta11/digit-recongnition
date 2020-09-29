@@ -1,9 +1,11 @@
+// code live at https://digit-recognition123.herokuapp.com/
+
 var express = require('express');
 var app = express();
 const fs= require('fs');
-const multer = require('multer');
-const { TesseractWorker }= require('tesseract.js');
-//const { createBrotliCompress } = require('zlib');
+const multer = require('multer');// file storage ocr 
+const { TesseractWorker }= require('tesseract.js'); // google api for ocr
+
 var port =process.env.PORT||3000;
 
 const worker= new TesseractWorker();
@@ -40,6 +42,7 @@ app.post('/upload',(req,res)=>{
            })
            .then(result=>{
                res.send(result.text);
+            
            })
            .finally(()=> worker.terminate());
       });
